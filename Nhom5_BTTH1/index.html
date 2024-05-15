@@ -1,0 +1,481 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Nhóm 5 - BTTH1</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.26/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.26/"></script>
+    <script src="./QL15_LT_TB/data.js" type="text/javascript"></script>
+    <script src="./CamMy/data.js" type="text/javascript"></script>
+    <script src="./XuanLoc/data.js" type="text/javascript"></script>
+    <script src="./BienHoa/data.js" type="text/javascript"></script>
+    <script src="./TanPhu/data.js" type="text/javascript"></script>
+    <script src="./LongKhanh/data.js" type="text/javascript"></script>
+    <script src="./thong-nhat/thongnhat.js" type="text/javascript"></script>
+    <script src="./nhon-trach/nhontrach.js" type="text/javascript"></script>
+    <script src="./DinhQuan/data.js" type="text/javascript"></script>
+    <script src="./quoclo20/quoclo20.js" type="text/javascript"></script>
+    <script src="./vinh-cuu/data.js" type="text/javascript"></script>
+
+    <style>
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      var popupTemplate_polyline = {
+        title: "{Đường}",
+        content: [
+          {
+            type: "fields",
+            fieldInfos: [{ fieldName: "Đường" }, { fieldName: "Chiều dài" }],
+          },
+        ],
+      };
+      var popupTemplate_polygon = {
+        title: "{Huyện}",
+        content: [
+          {
+            type: "fields",
+            fieldInfos: [
+              { fieldName: "Huyện" },
+              { fieldName: "Diện tích" },
+              { fieldName: "Dân số" },
+            ],
+          },
+        ],
+      };
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/core/reactiveUtils",
+      ], (Map, MapView, Graphic, reactiveUtils) => {
+        const map = new Map({
+          basemap: "hybrid",
+        });
+
+        const view = new MapView({
+          center: [107.210799, 11.072706],
+          container: "viewDiv",
+          map: map,
+          zoom: 10.92,
+        });
+
+        ////polyline
+
+        // create a symbol for drawing the line
+        const lineSymbol = {
+          type: "simple-line",
+          color: [251, 204, 90],
+          width: 4,
+        };
+
+        //QL 56
+        const polylineQL56 = {
+          type: "polyline",
+          paths: paths56,
+          symbol: lineSymbol,
+          attributes: lineAttQL56,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //QL 15
+        const polylineQL15 = {
+          type: "polyline",
+          paths: paths15,
+          symbol: lineSymbol,
+          attributes: lineAttQL15,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //DT672
+        const polylineDT672 = {
+          type: "polyline",
+          paths: pathsDT672,
+          symbol: lineSymbol,
+          attributes: lineAttDT672,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //QL1A
+        const polylineQL1A = {
+          type: "polyline",
+          paths: pathsQL1A,
+          symbol: lineSymbol,
+          attributes: lineAttQL1A,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //DT763
+        const polylineDT763 = {
+          type: "polyline",
+          paths: pathsDT763,
+          symbol: lineSymbol,
+          attributes: lineAttDT763,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //QL20
+        const polylineQL20 = {
+          type: "polyline",
+          paths: pathsQL20,
+          symbol: lineSymbol,
+          attributes: lineAttQL20,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //DT765
+        const polylineDT765 = {
+          type: "polyline",
+          paths: pathsDT765,
+          symbol: lineSymbol,
+          attributes: lineAttDT765,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //QL51
+        const polylineQL51 = {
+          type: "polyline",
+          paths: pathsQL51,
+          symbol: lineSymbol,
+          attributes: lineAttQL51,
+          popupTemplate: popupTemplate_polyline,
+        };
+
+        //polygon
+        // Long Thanh
+        const fillSymbolLT = {
+          type: "simple-fill",
+          color: "rgba(152, 228, 124, 0.5)",
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+        const polygonLongThanh = {
+          type: "polygon",
+          rings: LTrings,
+          symbol: fillSymbolLT,
+          attributes: graphicAttLT,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        // Trang Bom
+        const fillSymbolTB = {
+          type: "simple-fill",
+          color: "rgba(168, 140, 236, 0.5)",
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonTrangBom = {
+          type: "polygon",
+          rings: TBrings,
+          symbol: fillSymbolTB,
+          attributes: graphicAttTB,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Cam My
+        const fillSymbolCM = {
+          type: "simple-fill",
+          color: [221, 165, 68, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonCamMy = {
+          type: "polygon",
+          rings: ringsCM,
+          symbol: fillSymbolCM,
+          attributes: graphicAttCM,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Xuan Loc
+        const fillSymbolXL = {
+          type: "simple-fill",
+          color: [200, 133, 163, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonXuanLoc = {
+          type: "polygon",
+          rings: ringsXL,
+          symbol: fillSymbolXL,
+          attributes: graphicAttXL,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Bien Hoa
+        const fillSymbolBH = {
+          type: "simple-fill",
+          color: [102, 102, 255, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonBienHoa = {
+          type: "polygon",
+          rings: ringsBH,
+          symbol: fillSymbolBH,
+          attributes: graphicAttBH,
+          popupTemplate: {
+            title: "{Thành Phố}",
+            content: [
+              {
+                type: "fields",
+                fieldInfos: [
+                  { fieldName: "Thành Phố" },
+                  { fieldName: "Diện tích" },
+                  { fieldName: "Dân số" },
+                ],
+              },
+            ],
+          },
+        };
+
+        //Long Khanh
+        const fillSymbolLK = {
+          type: "simple-fill",
+          color: [102, 102, 255, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonLongKhanh = {
+          type: "polygon",
+          rings: ringsLK,
+          symbol: fillSymbolLK,
+          attributes: graphicAttLK,
+          popupTemplate: {
+            title: "{Thành Phố}",
+            content: [
+              {
+                type: "fields",
+                fieldInfos: [
+                  { fieldName: "Thành Phố" },
+                  { fieldName: "Diện tích" },
+                  { fieldName: "Dân số" },
+                ],
+              },
+            ],
+          },
+        };
+
+        //Tan Phu
+        const fillSymbolTP = {
+          type: "simple-fill",
+          color: [117, 222, 215, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonTanPhu = {
+          type: "polygon",
+          rings: ringsTP,
+          symbol: fillSymbolTP,
+          attributes: graphicAttTP,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Thong Nhat
+        const fillSymbolTN = {
+          type: "simple-fill",
+          color: [112, 146, 190, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonThongNhat = {
+          type: "polygon",
+          rings: ringsTN,
+          symbol: fillSymbolTN,
+          attributes: graphicAttTN,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Nhon Trach
+        const fillSymbolNT = {
+          type: "simple-fill",
+          color: [181, 230, 29, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonNhonTrach = {
+          type: "polygon",
+          rings: ringsNT,
+          symbol: fillSymbolNT,
+          attributes: graphicAttNT,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Dinh Quan
+        const fillSymbolDQ = {
+          type: "simple-fill",
+          color: [174, 241, 27, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonDinhQuan = {
+          type: "polygon",
+          rings: ringsDQ,
+          symbol: fillSymbolDQ,
+          attributes: graphicAttDQ,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //Vinh Cuu
+        const fillSymbolVC = {
+          type: "simple-fill",
+          color: [198, 133, 205, 0.5],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        const polygonVinhCuu = {
+          type: "polygon",
+          rings: ringsVC,
+          symbol: fillSymbolVC,
+          attributes: graphicAttVC,
+          popupTemplate: popupTemplate_polygon,
+        };
+
+        //create 1 point graphic
+        const createPointGraphic = (point) => {
+          return new Graphic({
+            geometry: point.point,
+            symbol: point.markerSymbol,
+            attributes: point.pointAtt,
+            popupTemplate: {
+              // autocasts as new PopupTemplate()
+              title: "{Name}",
+            },
+          });
+        };
+
+        let result = [];
+
+        var createGraphic = function (data) {
+          return new Graphic({
+            geometry: data,
+            symbol: data.symbol,
+            attributes: data.attributes,
+            popupTemplate: data.popupTemplate,
+          });
+        };
+
+        result.push(createGraphic(polygonLongThanh));
+        result.push(createGraphic(polygonTrangBom));
+        result.push(createGraphic(polygonCamMy));
+        result.push(createGraphic(polygonXuanLoc));
+        result.push(createGraphic(polygonBienHoa));
+        result.push(createGraphic(polygonTanPhu));
+        result.push(createGraphic(polygonLongKhanh));
+        result.push(createGraphic(polygonThongNhat));
+        result.push(createGraphic(polygonNhonTrach));
+        result.push(createGraphic(polygonDinhQuan));
+        result.push(createGraphic(polygonVinhCuu));
+        result.push(createGraphic(polylineQL56));
+        result.push(createGraphic(polylineQL15));
+        result.push(createGraphic(polylineDT765));
+        result.push(createGraphic(polylineQL1A));
+        result.push(createGraphic(polylineDT763));
+        result.push(createGraphic(polylineQL20));
+        result.push(createGraphic(polylineDT672));
+        result.push(createGraphic(polylineQL51));
+
+        const point = [];
+        pointListCM.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListLT.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListTB.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListXL.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListBH.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListTP.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListLK.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListTN.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListNT.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListDQ.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        pointListVC.map((child, index) => {
+          point.push(createPointGraphic(child));
+        });
+        reactiveUtils.watch(
+          () => [view.stationary, view.zoom],
+          ([stationary, zoom]) => {
+            // Only print the new zoom value when the view is stationary
+            if (stationary) {
+              if (zoom > 11.5) {
+                console.log(`Change in zoom level: ${zoom}`);
+                view.graphics.addMany(point);
+              } else {
+                console.log(`Change in zoom level: ${zoom}`);
+                view.graphics.removeMany(point);
+              }
+            }
+          }
+        );
+
+        view.graphics.addMany(result);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>

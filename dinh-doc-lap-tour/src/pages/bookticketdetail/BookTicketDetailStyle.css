@@ -1,0 +1,74 @@
+.col-5 {
+  width: 41.67%;
+}
+
+.col-7 {
+  width: 58.34%;
+}
+
+.bg-blue {
+  background-color: #eef5fd;
+  border-radius: 25px;
+}
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.bg-blue > li,
+div {
+  color: #123858;
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 25px;
+}
+
+.yellow {
+  color: #c8ab5c;
+}
+
+.dark {
+  color: #361e15;
+}
+
+.semi-b {
+  font-weight: 500;
+}
+
+.fs-35 {
+  font-size: 35px;
+}
+
+.fs-60 {
+  font-size: 60px;
+}
+
+.grid {
+  display: grid;
+}
+
+.unset-p {
+  padding: unset;
+}
+
+span {
+  color: black;
+}
+
+.green {
+  color: #57e824;
+}
+
+.dark-blue {
+  color: #123858;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.client-info {
+  padding-bottom: 0;
+  margin-left: 34px;
+}

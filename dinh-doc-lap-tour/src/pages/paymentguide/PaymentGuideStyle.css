@@ -1,0 +1,61 @@
+.bg-gray {
+  background-color: #f5f5f5;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+a {
+  text-decoration: underline;
+  color: -webkit-link;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.pr-8 {
+  padding-right: 2rem;
+}
+
+.fs-15 {
+  font-size: 15px;
+}
+
+.l {
+  font-weight: 400;
+}
+
+.b {
+  font-weight: bold;
+}
+.fs-22 {
+  font-size: 22px;
+}
+
+div {
+  color: #000;
+}
+
+.bg-white > div {
+  font-size: 18px;
+}
+
+.bg-white > div > ol {
+  font-weight: normal;
+}
+
+.bg-white > div:last-of-type {
+  font-weight: normal;
+}
+
+.btn-next {
+  width: 250px;
+  height: 50px;
+  background-color: #f1c40f;
+  color: #000;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 52rem;
+}
